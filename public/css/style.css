@@ -2,9 +2,13 @@
 @import url('./one.css');
 
 /*views*/
-
-#admin {
-  width: 990px;
+#wrap {
+  margin: 20px;
+  width: 960px;
   margin-left: auto;
   margin-right: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 12px #efefef;
+  border-radius: 4px;
 }
