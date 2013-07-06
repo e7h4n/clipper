@@ -1,4 +1,4 @@
-<div id="articles" class="articles">
+<div id="articles" class="articles fn-clear">
   <div class="single" ng-repeat="article in articles">
     <div class="single-byline">
         {{article.byline}}
@@ -6,6 +6,10 @@
     <div class="single-content">
         {{article.content}}
     </div>
-    <a href="#/edit/{{article.id}}" target="_blank">查看原文</a>
+    <a href="#/edit/?aid={{article.id}}">查看原文</a>
+  </div>
+  <div class="nope" ng-show="articles.length == 0">
+    现在还没有搜集任何文章呢...
+    <a href="#/clipper">返回收集窗口</a>
   </div>
 </div>
