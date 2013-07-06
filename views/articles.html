@@ -7,6 +7,7 @@
         {{article.content}}
     </div>
     <a href="#/edit/?aid={{article.id}}">查看原文</a>
+    <a href="javascript:'';" ng-click='remove($index)'>删除文章</a>
   </div>
   <div class="nope" ng-show="articles.length == 0">
     现在还没有搜集任何文章呢...

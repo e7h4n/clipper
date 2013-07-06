@@ -48,11 +48,12 @@ var _store = {
     return JSON.parse(localStorage.getItem('articles'));
   },
   // 删除一篇文章
-  remove: function(name) {
+  remove: function(id) {
+    // 首先删除单独保存的，然后删除所有文章列表中的
+    localStorage.removeItem('article' + id);
     var articles = this.fetch();
     if (articles) {
-      // 首先删除单独保存的，然后删除所有文章列表中的
-
+      delete articles[id];
     } else {
       return false;
     }
@@ -66,9 +67,11 @@ var clipperApp = {
       $scope.articles = _store.fetch() === null ? [] : _store.fetch();
     },
     article: function($scope,$routeParams) {
-      // 最好把store抽象出来...
       var articleID = $routeParams.rid;
       $scope.article = _store.get(articleID);
+      $scope.remove = function(id) {
+        _store.remove(id);
+      }
     },
     clipper: function($scope) {
     }
