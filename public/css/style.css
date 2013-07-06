@@ -1,0 +1,10 @@
+/*alice base*/
+@import url('./one.css');
+
+/*views*/
+
+#admin {
+  width: 990px;
+  margin-left: auto;
+  margin-right: auto;
+}
