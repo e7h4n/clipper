@@ -4,7 +4,8 @@ var _store = {
   // 这个id也是articles的数组index
   aid: function() {
     var articles = this.fetch();
-    if (articles) {
+    console.log(articles);
+    if (articles.length != 0) {
       return articles[articles.length].aid + 1;
     } else {
       return 0;
@@ -12,11 +13,10 @@ var _store = {
   },
   // 从原始数据从生成新的文章
   set: function(value) {
-    if (key) {
+    if (value) {
       var aid = this.aid();
       localStorage.setItem('article' + aid,JSON.stringify(value));
       this.push(aid);
-      return key;
     } else {
       return false;
     }
@@ -35,7 +35,7 @@ var _store = {
     var articles = this.fetch();
     var article = this.get(id);
     articles.push(article);
-    this.save('articles',articles)
+    this.save('articles',articles);
   },
   // 根据ID拿到单篇文章
   get: function(key) {
@@ -45,7 +45,11 @@ var _store = {
   },
   // 拿到所有文章
   fetch: function() {
-    return JSON.parse(localStorage.getItem('articles'));
+    if (localStorage.getItem('articles')) {
+      return JSON.parse(localStorage.getItem('articles'))
+    } else {
+      return [];
+    }
   },
   // 删除一篇文章
   remove: function(id) {
@@ -72,8 +76,6 @@ var clipperApp = {
       $scope.remove = function(id) {
         _store.remove(id);
       }
-    },
-    clipper: function($scope) {
     }
   }
 };
@@ -150,7 +152,7 @@ var clipper = angular.module('clipper', [])
 .config(function($routeProvider) {
   $routeProvider.
     when('/articles', {
-    controller: clipperApp.articles,
+    controller: clipperApp.ctrls.articles,
     templateUrl: 'views/articles.html'
   }).
     when('/clipper', {
@@ -158,7 +160,7 @@ var clipper = angular.module('clipper', [])
     templateUrl: 'views/clipper.html'
   }).
     when('/article', {
-    controller: clipperApp.article,
+    controller: clipperApp.ctrls.article,
     templateUrl: 'views/article.html'
   }).
     otherwise({
