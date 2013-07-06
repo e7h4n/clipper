@@ -1,12 +1,9 @@
 <div id="articles" class="articles fn-clear">
   <div class="single" ng-repeat="article in articles">
-    <div class="single-byline">
-        {{article.byline}}
-    </div>
     <div class="single-content">
         {{article.content}}
     </div>
-    <a href="#/edit/?aid={{article.id}}">查看原文</a>
+    <a href="#/edit/?aid={{article.aid}}">查看原文</a>
     <a href="javascript:'';" ng-click='remove($index)'>删除文章</a>
   </div>
   <div class="nope" ng-show="articles.length == 0">

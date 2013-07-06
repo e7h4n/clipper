@@ -4,9 +4,8 @@ var _store = {
   // 这个id也是articles的数组index
   aid: function() {
     var articles = this.fetch();
-    console.log(articles);
     if (articles.length != 0) {
-      return articles[articles.length].aid + 1;
+      return articles[articles.length -1].aid + 1;
     } else {
       return 0;
     }
@@ -15,7 +14,11 @@ var _store = {
   set: function(value) {
     if (value) {
       var aid = this.aid();
-      localStorage.setItem('article' + aid,JSON.stringify(value));
+      console.log(aid);
+      localStorage.setItem('article' + aid,JSON.stringify({
+        aid: aid,
+        content: value
+      }));
       this.push(aid);
     } else {
       return false;
@@ -32,21 +35,25 @@ var _store = {
   },
   // 将单篇文章推送到全部文章的数组里
   push: function(id) {
+    console.log('pushing...');
     var articles = this.fetch();
     var article = this.get(id);
     articles.push(article);
-    this.save('articles',articles);
+    this.save('articles',JSON.stringify(articles));
   },
   // 根据ID拿到单篇文章
   get: function(key) {
-    if (key) {
-      return localStorage.getItem('article' + key) === null ? null : JSON.parse(localStorage.getItem('article' + key));
+    if (localStorage.getItem('article' + key)) {
+      return JSON.parse(localStorage.getItem('article' + key));
+    } else {
+      return null
     }
   },
   // 拿到所有文章
   fetch: function() {
-    if (localStorage.getItem('articles')) {
-      return JSON.parse(localStorage.getItem('articles'))
+    var articles = localStorage.getItem('articles');
+    if (articles != null) {
+      return JSON.parse(articles);
     } else {
       return [];
     }
@@ -68,7 +75,8 @@ var _store = {
 var clipperApp = {
   ctrls: {
     articles: function($scope) {
-      $scope.articles = _store.fetch() === null ? [] : _store.fetch();
+      $scope.articles = _store.fetch();
+      console.log($scope.articles);
     },
     article: function($scope,$routeParams) {
       var articleID = $routeParams.rid;
