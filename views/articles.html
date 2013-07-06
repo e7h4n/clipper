@@ -1,0 +1,11 @@
+<div id="articles" class="articles">
+  <div class="single" ng-repeat="article in articles">
+    <div class="single-byline">
+        {{article.byline}}
+    </div>
+    <div class="single-content">
+        {{article.content}}
+    </div>
+    <a href="#/edit/{{article.id}}" target="_blank">查看原文</a>
+  </div>
+</div>

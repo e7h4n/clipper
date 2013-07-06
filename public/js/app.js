@@ -16,15 +16,15 @@ var clipperApp = {
 var clipper = angular.module('clipper', []).config(function($routeProvider) {
   $routeProvider.
   when('/articles', {
-    controller: lemon.ctrls.articles,
+    controller: clipperApp.ctrls.articles,
     templateUrl: '../../views/articles.html'
   }).
   when('/clipper', {
-    controller: lemon.ctrls.clipper,
+    controller: clipperApp.ctrls.clipper,
     templateUrl: '../../views/clipper.html'
   }).
   when('/article', {
-    controller: lemon.ctrls.article,
+    controller: clipperApp.ctrls.article,
     templateUrl: '../../views/article.html'
   }).
   otherwise({
